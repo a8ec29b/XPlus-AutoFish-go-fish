@@ -188,6 +188,7 @@ public class Autofish {
             if(!(BlockPos.stream(x - 2, y + yi, z - 2, x + 2, y + yi, z + 2).allMatch((blockPos ->
                     // every block is water
                         bobber.getEntityWorld().getBlockState(blockPos).getBlock() == Blocks.WATER
+                        || bobber.getEntityWorld().getBlockState(blockPos).getBlock() == Blocks.LAVA
                     )) || BlockPos.stream(x - 2, y + yi, z - 2, x + 2, y + yi, z + 2).allMatch((blockPos ->
                     // or every block is air or lily pad
                         bobber.getEntityWorld().getBlockState(blockPos).getBlock() == Blocks.AIR
@@ -219,7 +220,7 @@ public class Autofish {
             PlayerInventory inventory = player.getInventory();
             for (int i = 0; i < inventory.main.size(); i++) {
                 ItemStack slot = inventory.main.get(i);
-                if (slot.getItem() == Items.FISHING_ROD) {
+                if (slot.getItem() == Items.FISHING_ROD || slot.getItem() instanceof FishingRodItem) {
                     if (i < 9) { //hotbar only
                         if (modAutofish.getConfig().isNoBreak()) {
                             if (slot.getDamage() < 63) {
@@ -238,7 +239,7 @@ public class Autofish {
 
     public boolean isBobberInWater(){
         if(client.player != null && client.world != null && client.player.fishHook != null) {
-            return client.world.getBlockState(client.player.fishHook.getBlockPos()).getBlock() == Blocks.WATER;
+            return client.world.getBlockState(client.player.fishHook.getBlockPos()).getBlock() == Blocks.WATER || client.world.getBlockState(client.player.fishHook.getBlockPos()).getBlock() == Blocks.LAVA;
         } else{
             return false;
         }

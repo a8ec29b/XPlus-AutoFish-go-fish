@@ -31,7 +31,7 @@ public class FishMonitorMPMotion implements FishMonitorMP {
 
     @Override
     public void hookTick(Autofish autofish, MinecraftClient minecraft, FishingBobberEntity hook) {
-        if (worldContainsBlockWithMaterial(hook.getWorld(), hook.getBoundingBox(), Blocks.WATER)) {
+        if (worldContainsBlockWithMaterial(hook.getWorld(), hook.getBoundingBox(), Blocks.WATER) || worldContainsBlockWithMaterial(hook.getWorld(), hook.getBoundingBox(), Blocks.LAVA)) {
             hasHitWater = true;
         }
     }
